@@ -1,5 +1,11 @@
 class DailyMetrics:
     def __init__(self, spend, impression, clicks, revenue):
+        if clicks == 0:
+            raise ValueError("clicks can not be Zero / 0 ")
+        if impression == 0:
+            raise ValueError("Impressions Can not be Zero / 0")
+        if spend == 0:
+            raise ValueError()
         self.ctr = (clicks / impression) * 100
         self.cpc = spend / clicks
         self.roas = revenue / spend

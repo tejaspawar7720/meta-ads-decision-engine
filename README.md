@@ -1,19 +1,13 @@
-# Meta Ads Decision Engine
-
-Automated Meta Ads performance analyzer and decision engine built with Python.
-
-## Features
-- Daily metrics calculator (CTR, CPC, ROAS)
-- Automated decision engine (Scale/Hold/Stop)
-- User defined custom rules
-- 3-day trend analyzer
-
 ## How to run
-```bash
-python main.py
-```
+pip install -r requirements.txt
+uvicorn api:app --reload
 
-## Metrics
-- CTR = Clicks/Impressions × 100
-- CPC = Spend/Clicks  
-- ROAS = Revenue/Spend
+## API Endpoints
+POST /metrics - Submit daily ad data
+GET  /metrics - Get all metrics
+POST /decision/auto - Get automated decision
+POST /decision/manual - Get custom decision
+GET  /trend - Get 3-day trend analysis
+
+## Docs
+http://localhost:8000/docs

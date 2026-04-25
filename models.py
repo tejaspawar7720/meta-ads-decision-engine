@@ -1,14 +1,32 @@
-class DailyMetrics:
-    """This class function is use to call daily metrics 
-as user enters there spend impression clicks and revenue
-then it convert into the ctr cpc and roas automatically"""
-    def __init__(self, spend : float, impression : int , clicks : int, revenue : float):
+from sqlalchemy import Column, Integer, Float, Date
+from database import Base
+
+
+class DailyMetrics(Base):
+    """Database table for daily ad metrics"""
+    __tablename__ = "daily_metrics"
+
+    id = Column(Integer, primary_key=True, index=True)
+    spend = Column(Float, nullable=False)
+    clicks = Column(Integer, nullable=False)
+    impressions = Column(Integer, nullable=False)
+    revenue = Column(Float, nullable=False)
+    ctr = Column(Float, nullable=False)
+    cpc = Column(Float, nullable=False)
+    roas = Column(Float, nullable=False)
+    date = Column(Date, nullable=False)
+
+    @staticmethod
+    def calculate_metrics(spend: float, impressions: int, clicks: int, revenue: float):
+        """Calculate CTR, CPC, ROAS from raw data"""
         if clicks == 0:
-            raise ValueError("clicks can not be Zero / 0 ")
-        if impression == 0:
-            raise ValueError("Impressions Can not be Zero / 0")
+            raise ValueError("Clicks cannot be zero")
+        if impressions == 0:
+            raise ValueError("Impressions cannot be zero")
         if spend == 0:
-            raise ValueError("Spend Can not be zero / 0")
-        self.ctr = (clicks / impression) * 100
-        self.cpc = spend / clicks
-        self.roas = revenue / spend
+            raise ValueError("Spend cannot be zero")
+        
+        ctr = (clicks / impressions) * 100
+        cpc = spend / clicks
+        roas = revenue / spend
+        return ctr, cpc, roas

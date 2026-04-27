@@ -1,3 +1,4 @@
 .env
+adsprovenv/
 __pycache__/
 *.pyc
